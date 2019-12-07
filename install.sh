@@ -13,7 +13,7 @@ mkdir -p "/opt/sysinfo"
 echo "download and install sysinfo script..."
 curl --silent https://raw.githubusercontent.com/norgeous/sysinfo/master/bin/sysinfo.sh --output "/opt/sysinfo/sysinfo.sh"
 chmod a+x "/opt/sysinfo/sysinfo.sh"
-[ ! -L "/usr/bin/sysinfo" ] && ln -s "/opt/sysinfo.sh" "/usr/bin/sysinfo"
+[ ! -L "/usr/bin/sysinfo" ] && ln -s "/opt/sysinfo/sysinfo.sh" "/usr/bin/sysinfo"
 
 echo "download and install piv script..."
 curl --silent  https://raw.githubusercontent.com/norgeous/sysinfo/master/bin/piv.sh --output "/opt/sysinfo/piv.sh"
