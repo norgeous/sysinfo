@@ -24,7 +24,7 @@ output_mode="human"
 server_mode="no"
 
 OPTIND=1 # Reset shell
-while getopts "h?epvj" opt; do
+while getopts "h?epvjs" opt; do
   case "$opt" in
   h|\?)
     usage
