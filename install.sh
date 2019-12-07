@@ -1,8 +1,9 @@
 #!/bin/bash
 [[ $EUID -ne 0 ]] && echo "You must be running as user root." && exit 1
 
-echo "installing sysstat and dnsutils..."
-apt install -y sysstat dnsutils
+
+[ ! -x "$(command -v iostat)" ] && echo "installing sysstat/iostat..." && apt install -y sysstat
+[ ! -x "$(command -v dig)" ] && echo "installing dnsutils/dig..." && apt install -y dnsutils
 
 echo "remove old sysinfo install..."
 rm -r "/opt/sysinfo"
