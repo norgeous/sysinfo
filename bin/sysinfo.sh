@@ -121,7 +121,7 @@ case "$output_mode" in
       [ -n "$NPM_G_LS" ]        && echo "NPM_G_LS        + ${NPM_G_LS}"
       [ -n "$TIMESTAMP_START" ] && echo "TIMESTAMP_START + ${TIMESTAMP_START}"
       [ -n "$TIMESTAMP_END" ]   && echo "TIMESTAMP_END   + ${TIMESTAMP_END}"
-      [ -n "$ENUM_TIME" ]       && echo "ENUM_TIME       + ${ENUM_TIME}"
+      [ -n "$ENUM_TIME" ]       && echo "ENUM_TIME       + ${ENUM_TIME} seconds"
     ) | tr -s " " | column -t -s '+'
     ;;
   valuesonly)
