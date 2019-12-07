@@ -10,12 +10,10 @@ function usage {
   echo
   echo "Options:"
   echo -e "\t-h  Shows this help"
-  echo -e "\toperations:"
   echo -e "\t-e  Show extended values"
-  echo -e "\toutput:"
   echo -e "\t-p  Show pretty (human readable) values (default)"
   echo -e "\t-v  Show values without labels and as Bytes"
-  echo -e "\t-v  Show values without labels and as Bytes"
+  echo -e "\t-j  Show json"
   echo
 }
 
