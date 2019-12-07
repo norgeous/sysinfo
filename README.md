@@ -27,7 +27,7 @@ watch -n .5 sysinfo -e
 
 ##### piv
 
-Using info from https://elinux.org/RPi_HardwareHistory and the revision listed in `/proc/cpuinfo`, it determines the hardware version of your Raspberry Pi.
+Using data from https://elinux.org/RPi_HardwareHistory and the CPU revision from `/proc/cpuinfo` it determines the hardware version of your Raspberry Pi.
 
 ```sh
 piv
