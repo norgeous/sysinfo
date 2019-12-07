@@ -74,7 +74,7 @@ if [ "$info_mode" == "extended" ]; then
   DISK_TOTAL=$(df -PB1 | grep "/dev/root" | awk '{print $2}')
   DISK_READ=$(iostat -d | grep "mmcblk0" | awk '{print $5 "K"}' | numfmt --from=auto)
   DISK_WRITTEN=$(iostat -d | grep "mmcblk0" | awk '{print $6 "K"}' | numfmt --from=auto)
-  NET_LOCAL_IP=$(ip route get 1 | awk '{print $NF;exit}')
+  NET_LOCAL_IP=$(ip route get 1 | cut -d' ' -f7)
   NET_WAN_IP=$(dig +short myip.opendns.com @resolver1.opendns.com)
   NET_ETH_TX=$(cat /sys/class/net/eth0/statistics/tx_bytes 2>/dev/null || echo 0)
   NET_ETH_RX=$(cat /sys/class/net/eth0/statistics/rx_bytes 2>/dev/null || echo 0)
