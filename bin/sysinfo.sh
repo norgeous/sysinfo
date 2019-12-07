@@ -87,7 +87,7 @@ if [ "$info_mode" == "extended" ]; then
 fi
 
 TIMESTAMP_END=$(date +%s%N)
-ENUM_TIME=$(awk "BEGIN { print ($TIMESTAMP_END - $TIMESTAMP) / 1000000000 }")
+ENUM_TIME=$(awk "BEGIN { print ($TIMESTAMP_END - $TIMESTAMP_START) / 1000000000 }")
 
 case "$output_mode" in
   human)
