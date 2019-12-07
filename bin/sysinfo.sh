@@ -206,6 +206,7 @@ EOT
 
 if [ "$server_mode" == "netcat" ]; then
   while true; do
-    echo "$HTTP_HEAD data here" | nc -l 6060
+    echo "* Listening on http://$NET_LOCAL_IP:6060"
+    echo "$HTTP_HEAD data here\n\n" | nc -l 6060
   done
 fi
