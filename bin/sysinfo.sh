@@ -119,8 +119,8 @@ case "$output_mode" in
       [ -n "$NET_WLAN_RX" ]     && echo "NET_WLAN_RX     + $(numfmt --to=iec --suffix=B $NET_WLAN_RX)"
       [ -n "$NET_OPEN_PORTS" ]  && echo "NET_OPEN_PORTS  + ${NET_OPEN_PORTS}"
       [ -n "$NPM_G_LS" ]        && echo "NPM_G_LS        + ${NPM_G_LS}"
-      [ -n "$TIMESTAMP_START" ] && echo "TIMESTAMP_START + $(date -r $TIMESTAMP_START)"
-      [ -n "$TIMESTAMP_END" ]   && echo "TIMESTAMP_END   + $(date -r $TIMESTAMP_END)"
+      [ -n "$TIMESTAMP_START" ] && echo "TIMESTAMP_START + $(date -d @$(($TIMESTAMP_START / 1000000000)))"
+      [ -n "$TIMESTAMP_END" ]   && echo "TIMESTAMP_END   + $(date -d @$(($TIMESTAMP_END / 1000000000)))"
       [ -n "$ENUM_TIME" ]       && echo "ENUM_TIME       + ${ENUM_TIME} seconds"
     ) | tr -s " " | column -t -s '+'
     ;;
