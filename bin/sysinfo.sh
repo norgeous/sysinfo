@@ -209,6 +209,11 @@ if [ "$server_mode" == "netcat" ]; then
   echo
   while true; do
     echo "* Listening on http://$NET_LOCAL_IP:6060"
-    echo "$HTTP_HEAD data here\n\n" | nc -l 6060
+    RESPONSE="$HTTP_HEAD data here\n\n"
+    echo
+    echo $RESPONSE
+    echo
+    echo "$RESPONSE"
+    echo "$RESPONSE" | nc -l 6060
   done
 fi
