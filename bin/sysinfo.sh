@@ -51,6 +51,7 @@ args="$*"
 
 # simple
 HOST_NAME=$(hostname)
+[ -x "$(command -v piv)" ] && PI_VERSION=$(piv)
 CPU_USAGE=$(cat <(grep 'cpu ' /proc/stat) <(sleep 1 && grep 'cpu ' /proc/stat) | awk -v RS="" '{print ($13-$2+$15-$4)*100/($13-$2+$15-$4+$16-$5)}')
 CPU_PROCESSES=$(ps -A --no-headers | wc -l)
 CPU_TEMPERATURE=$(echo "2k `cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null || echo 0` 1000 / p" | dc)
@@ -91,6 +92,7 @@ case "$output_mode" in
   human)
     (
       [ -n "$HOST_NAME" ]       && echo "HOST_NAME       + ${HOST_NAME}"
+      [ -n "$PI_VERSION" ]      && echo "PI_VERSION      + ${PI_VERSION}"
       [ -n "$HOST_KERNEL" ]     && echo "HOST_KERNEL     + ${HOST_KERNEL}"
       [ -n "$HOST_START" ]      && echo "HOST_START      + ${HOST_START}"
       [ -n "$HOST_UPTIME" ]     && echo "HOST_UPTIME     + ${HOST_UPTIME}"
@@ -125,6 +127,7 @@ case "$output_mode" in
   valuesonly)
     (
       [ -n "$HOST_NAME" ]       && echo "HOST_NAME       + ${HOST_NAME}"
+      [ -n "$PI_VERSION" ]      && echo "PI_VERSION      + ${PI_VERSION}"
       [ -n "$HOST_KERNEL" ]     && echo "HOST_KERNEL     + ${HOST_KERNEL}"
       [ -n "$HOST_START" ]      && echo "HOST_START      + ${HOST_START}"
       [ -n "$HOST_UPTIME" ]     && echo "HOST_UPTIME     + ${HOST_UPTIME}"
@@ -160,6 +163,7 @@ case "$output_mode" in
     (
       echo "{"
       [ -n "$HOST_NAME" ]       && echo "\"HOST_NAME\":       + \"${HOST_NAME}\","
+      [ -n "$PI_VERSION" ]      && echo "\"PI_VERSION\":      + \"${PI_VERSION}\""
       [ -n "$HOST_KERNEL" ]     && echo "\"HOST_KERNEL\":     + \"${HOST_KERNEL}\","
       [ -n "$HOST_START" ]      && echo "\"HOST_START\":      + \"${HOST_START}\","
       [ -n "$HOST_UPTIME" ]     && echo "\"HOST_UPTIME\":     + \"${HOST_UPTIME}\","
