@@ -52,6 +52,7 @@ shift $((OPTIND-1))
 args="$*"
 
 # simple
+HOST_NAME=$(hostname)
 CPU_USAGE=$(cat <(grep 'cpu ' /proc/stat) <(sleep 1 && grep 'cpu ' /proc/stat) | awk -v RS="" '{print ($13-$2+$15-$4)*100/($13-$2+$15-$4+$16-$5)}')
 CPU_PROCESSES=$(ps -A --no-headers | wc -l)
 CPU_TEMPERATURE=$(echo "2k `cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null || echo 0` 1000 / p" | dc)
@@ -61,7 +62,6 @@ RAM_TOTAL=$(free -b | grep "Mem:" | awk '{print $2}')
 
 # extended
 if [ "$info_mode" == "extended" ]; then
-  HOST_NAME=$(hostname)
   HOST_START=$(uptime -s)
   HOST_UPTIME=$(uptime -p)
   HOST_KERNEL=$(uname -r | cut -d+ -f1 | cut -d- -f1)
@@ -80,7 +80,7 @@ if [ "$info_mode" == "extended" ]; then
   NET_ETH_RX=$(cat /sys/class/net/eth0/statistics/rx_bytes 2>/dev/null || echo 0)
   NET_WLAN_TX=$(cat /sys/class/net/wlan0/statistics/tx_bytes 2>/dev/null || echo 0)
   NET_WLAN_RX=$(cat /sys/class/net/wlan0/statistics/rx_bytes 2>/dev/null || echo 0)
-  NET_OPEN_PORTS=$(ss -nltpH | tr -s ' :' | awk -F'[ :"]' '{print $5 "(" $10 ")"}' | sort -g | uniq | paste -sd " " -)
+  NET_OPEN_PORTS=$(ss -nltpH | sed 's/\[:\]/0.0.0.0/g' | tr -s ' :' | awk -F'[ :"]' '{print $5 "(" $10 ")"}' | sort -g | uniq | paste -sd " " -)
   [ -x "$(command -v node)" ] && NODE_V=$(node -v)
   [ -x "$(command -v npm)" ] && NPM_G_LS=$(npm ls -gp --depth=0 | grep node_modules | sed 's|/usr/local/lib/node_modules/||' | tr '\n' ' ' | sed 's/.$//')
   [ -x "$(command -v npm)" ] && NPM_V=$(npm -v)
