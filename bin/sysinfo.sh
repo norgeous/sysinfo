@@ -53,6 +53,8 @@ args="$*"
 HOST_NAME=$(hostname)
 [ -x "$(command -v piv)" ] && PI_VERSION=$(piv)
 CPU_USAGE=$(cat <(grep 'cpu ' /proc/stat) <(sleep 1 && grep 'cpu ' /proc/stat) | awk -v RS="" '{print ($13-$2+$15-$4)*100/($13-$2+$15-$4+$16-$5)}')
+HOST_KERNEL=$(uname -r | cut -d+ -f1 | cut -d- -f1)
+HOST_START=$(uptime -s)
 CPU_PROCESSES=$(ps -A --no-headers | wc -l)
 CPU_TEMPERATURE=$(echo "2k `cat /sys/class/thermal/thermal_zone0/temp 2>/dev/null || echo 0` 1000 / p" | dc)
 GPU_TEMPERATURE=$(/opt/vc/bin/vcgencmd measure_temp | cut -d'=' -f2 | sed "s|'C||")
@@ -61,9 +63,7 @@ RAM_TOTAL=$(free -b | grep "Mem:" | awk '{print $2}')
 
 # extended
 if [ "$info_mode" == "extended" ]; then
-  HOST_START=$(uptime -s)
   HOST_UPTIME=$(uptime -p)
-  HOST_KERNEL=$(uname -r | cut -d+ -f1 | cut -d- -f1)
   HOST_USERS=$(who -q | grep "# users=" | cut -d'=' -f2)
   CPU_VOLT=$(/opt/vc/bin/vcgencmd measure_volts core | cut -d'=' -f2 | sed 's|V||')
   CPU_FREQ=$(echo "0k `/opt/vc/bin/vcgencmd measure_clock arm | cut -d'=' -f2` 1000000 / p" | dc)
@@ -194,7 +194,7 @@ case "$output_mode" in
       [ -n "$TIMESTAMP_END" ]   && echo "\"TIMESTAMP_END\":   + ${TIMESTAMP_END}"
       [ -n "$ENUM_TIME" ]       && echo "\"ENUM_TIME\":       + ${ENUM_TIME}"
       echo "}"
-    ) | tr -s " " | column -t -s '+'
+    ) | tr -s " " | column -t -s '+' | tr -s ' '
     ;;
   esac
 
@@ -206,7 +206,7 @@ if [ "$server_mode" == "netcat" ]; then
   while true; do
     SEP="\r\n\r\n"
     HTTP_HEAD="HTTP/1.1 200 OK"
-    DATA=$(sysinfo)
+    DATA=$(sysinfo -j)
     RESPONSE="$HTTP_HEAD$SEP$DATA$SEP"
     echo -e "$RESPONSE" | nc -l -p 6060 -q 1 | grep "GET\|User-Agent: " | tr '\r\n' ' ' | tr -s ' '
     echo
