@@ -198,22 +198,17 @@ case "$output_mode" in
     ;;
   esac
 
-read -r -d '' HTTP_HEAD <<-'EOT'
-HTTP/1.1 200 OK
-Content-Type: text/html; charset=UTF-8
-Server: netcat-sysinfo
-EOT
-
-echo
 if [ "$server_mode" == "netcat" ]; then
+  NET_LOCAL_IP=$(ip route get 1 | cut -d' ' -f7)
+  echo
+  echo "* Listening on http://$NET_LOCAL_IP:6060"
   echo
   while true; do
-    echo "* Listening on http://$NET_LOCAL_IP:6060"
-    RESPONSE="$HTTP_HEAD data here\n\n"
+    SEP="\r\n\r\n"
+    HTTP_HEAD="HTTP/1.1 200 OK"
+    DATA=$(sysinfo)
+    RESPONSE="$HTTP_HEAD$SEP$DATA$SEP"
+    echo -e "$RESPONSE" | nc -l -p 6060 -q 1 | grep "GET\|User-Agent: " | tr '\r\n' ' ' | tr -s ' '
     echo
-    echo $RESPONSE
-    echo
-    echo "$RESPONSE"
-    echo "$RESPONSE" | nc -l 6060
   done
 fi
