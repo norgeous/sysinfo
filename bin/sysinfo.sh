@@ -206,7 +206,7 @@ if [ "$server_mode" == "netcat" ]; then
   while true; do
     SEP="\r\n\r\n"
     HTTP_HEAD="HTTP/1.1 200 OK"
-    DATA=$(sysinfo -j)
+    DATA=$(sysinfo -ej)
     RESPONSE="$HTTP_HEAD$SEP$DATA$SEP"
     echo -e "$RESPONSE" | nc -l -p 6060 -q 1 | grep "GET\|User-Agent: " | tr '\r\n' ' ' | tr -s ' '
     echo
