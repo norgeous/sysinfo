@@ -35,8 +35,6 @@ then
   
   echo "download and install systemd sysinfo.service file..."
   curl --silent "https://raw.githubusercontent.com/norgeous/sysinfo/master/bin/sysinfo.service" --output "/etc/systemd/system/sysinfo.service"
-
-EOF
 fi
 
 echo "done"
