@@ -23,7 +23,7 @@ chmod a+x "/opt/sysinfo/piv.sh"
 [ -L "/usr/bin/piv" ] && rm "/usr/bin/piv"
 ln -s "/opt/sysinfo/piv.sh" "/usr/bin/piv"
 
-read -p "Install systemd socat server for unprotected network access to sysinfo on port 9009? " -n 1 -r; echo
+read -p "Install systemd socat server for unprotected network access to sysinfo on port 9009? [y/N] " -n 1 -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   echo "install socat..."
