@@ -82,7 +82,7 @@ if [ "$info_mode" == "extended" ]; then
   NET_WLAN_RX=$(cat /sys/class/net/wlan0/statistics/rx_bytes 2>/dev/null || echo 0)
   NET_OPEN_PORTS=$(ss -nltpH | sed 's/\[::\]/0.0.0.0/g' | tr -s ' :' | awk -F'[ :"]' '{print $5 "(" $10 ")"}' | sort -g | uniq | paste -sd " " -)
   [ -x "$(command -v node)" ] && NODE_V=$(node -v)
-  [ -x "$(command -v npm)" ] && NPM_G_LS=$(npm ls -gp --depth=0 | grep node_modules | sed 's|/usr/local/lib/node_modules/||' | tr '\n' ' ' | sed 's/.$//')
+  # [ -x "$(command -v npm)" ] && NPM_G_LS=$(npm ls -gp --depth=0 | grep node_modules | sed 's|/usr/local/lib/node_modules/||' | tr '\n' ' ' | sed 's/.$//')
   [ -x "$(command -v npm)" ] && NPM_V=$(npm -v)
 fi
 
