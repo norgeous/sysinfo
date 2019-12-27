@@ -1,0 +1,8 @@
+[Unit]
+Description=sysinfo
+After=network.target
+[Service]
+ExecStart=/opt/sysinfo/server.sh
+Restart=on-failure
+[Install]
+WantedBy=multi-user.target

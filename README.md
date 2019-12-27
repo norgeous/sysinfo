@@ -23,6 +23,7 @@ bash <(curl -s https://raw.githubusercontent.com/norgeous/sysinfo/master/install
 ```sh
 sysinfo -h
 watch -n .5 sysinfo -e
+curl localhost:9009
 ```
 
 ##### piv
