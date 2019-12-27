@@ -170,7 +170,7 @@ case "$output_mode" in
     (
       echo "{"
       [ -n "$HOST_NAME" ]           && echo "\"HOST_NAME\":           \"${HOST_NAME}\","
-      [ -n "$PI_VERSION" ]          && echo "\"PI_VERSION\":          \"${PI_VERSION}\""
+      [ -n "$PI_VERSION" ]          && echo "\"PI_VERSION\":          \"${PI_VERSION}\","
       [ -n "$HOST_OS_PRETTY_NAME" ] && echo "\"HOST_OS_PRETTY_NAME\": \"${HOST_OS_PRETTY_NAME}\","
       [ -n "$HOST_KERNEL" ]         && echo "\"HOST_KERNEL\":         \"${HOST_KERNEL}\","
       [ -n "$HOST_START" ]          && echo "\"HOST_START\":          \"${HOST_START}\","
